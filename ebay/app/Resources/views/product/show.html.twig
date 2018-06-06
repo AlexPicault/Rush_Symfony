@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ product.name }}</h1>
+<div class="container">
+    <div class="row">
+        <div class="span5">
+            <table class="table table-striped table-condensed">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ product.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ product.description }}</td>
+            </tr>
+            <tr>
+                <th>category</th>
+                <td>{{ product.category }}</td>
+            </tr>
+            <tr>
+                <th>user</th>
+                <td>{{ product.user }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ product.price }}</td>
+            </tr>
+            <tr>
+                <th>Immediate_price</th>
+                <td>{{ product.immediateprice }}</td>
+            </tr>
+            <tr>
+                <th>Saledate</th>
+                <td>{% if product.saleDate %}{{ product.saleDate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{asset('uploads/images/products/'~product.getImage)}}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('product_index') }}">Back to the list</a>
+        </li>
+        <li>
+            {% if app.user.username == product.user %}
+            <a href="{{ path('product_edit', { 'id': product.id }) }}">Edit</a>
+            {% endif %}
+        </li>
+        <li>
+            {% if app.user.username == product.user %}
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+            {% endif %}
+        </li>
+    </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

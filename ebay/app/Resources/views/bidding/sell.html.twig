@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bidding</h1>
+<p>BRAVO vous avez remporté la mise sur {{ product.name }}</p>
+    <table>
+        <tbody>
+            <tr>
+                <th>Bid</th>
+                <td>{{ bidding.bid }}</td>
+            </tr>
+                <tr>
+                    <th>Bid</th>
+                    <td>{{ product.name }}</td>
+                </tr>
+        </tbody>
+    </table>
+
+    {#<ul>#}
+        {#<li>#}
+            {#{{ product.id }}#}
+            {#<a class="label label-default" href="{{ path('rate_new' }}">Back to the#}
+                {#list</a>#}
+        {#</li>#}
+    {#</ul>#}
+    <ul>
+        <li>
+            <a class="label label-default" href="{{ path('rate_new', {'id': product.id}) }}">Rate Product and user</a>
+        </li>
+    </ul>
+{% endblock %}

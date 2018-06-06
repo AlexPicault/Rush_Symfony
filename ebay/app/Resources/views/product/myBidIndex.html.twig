@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>My bids</h1>
+<div class="container">
+    <div class="row">
+        <div class="span5">
+            <table class="table table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Sold</th>
+                <th>Price</th>
+                <th>Immediate_price</th>
+                <th>My Bind</th>
+                <th>Saledate</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tab in tabs %}
+            <tr>
+                <td>{{ tab[1].name }}</td>
+                <td>{{ tab[1].description }}</td>
+                <td>{{ tab[1].category }}</td>
+                {% if tab[1].sell == 1 %}
+                <td> YES </td>
+                {% else %}
+                <td>NO</td>
+                {% endif %}
+                <td>{{ tab[1].price }}</td>
+                <td>{{ tab[1].immediateprice }}</td>
+                <td>{{ tab[0].bid }}</td>
+                <td>{% if tab[1].saledate %}{{ tab[1].saledate|date('Y-m-d') }}{% endif %}</td>
+                <td><img src="{{asset('uploads/images/products/'~tab[1].image)}}" width="100px" height="100px"></td>
+                <td>
+                    <ul>
+                        {#<li>#}
+                            {#<a class="label label-default" href="{{ path('product_edit', { 'id': tab[1].id })#}
+                            {#}}">edit</a>#}
+                        {#</li>#}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

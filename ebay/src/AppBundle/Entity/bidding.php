@@ -1,0 +1,136 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * bidding
+ *
+ * @ORM\Table(name="bidding")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\biddingRepository")
+ */
+class bidding
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="bid", type="integer")
+     */
+    private $bid;
+
+    /**
+     * @var
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\product", inversedBy="bidding", cascade={"remove"})
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     */
+    private $product;
+
+    /**
+     * @var
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="bidding", cascade={"remove"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+
+    /**
+     * Get id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set bid.
+     *
+     * @param int $bid
+     *
+     * @return bidding
+     */
+    public function setBid($bid)
+    {
+        $this->bid = $bid;
+
+        return $this;
+    }
+
+    /**
+     * Get bid.
+     *
+     * @return int
+     */
+    public function getBid()
+    {
+        return $this->bid;
+    }
+
+    /**
+     * Set product.
+     *
+     * @param \AppBundle\Entity\product|null $product
+     *
+     * @return bidding
+     */
+    public function setProduct(\AppBundle\Entity\product $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product.
+     *
+     * @return \AppBundle\Entity\product|null
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Set user.
+     *
+     * @param \AppBundle\Entity\User|null $user
+     *
+     * @return bidding
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user.
+     *
+     * @return \AppBundle\Entity\User|null
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function __toString()
+    {
+        $bid = $this->getBid();
+        $convBid = (string)$bid;
+        return $convBid;
+    }
+}

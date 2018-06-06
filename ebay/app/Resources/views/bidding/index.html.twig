@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Biddings list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Bid</th>
+                <th>Product</th>
+                <th>User</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bidding in biddings %}
+            <tr>
+                <td><a href="{{ path('bidding_show', { 'id': bidding.id }) }}">{{ bidding.id }}</a></td>
+                <td>{{ bidding.bid }}</td>
+                <td>{{ bidding.product }}</td>
+                <td>{{ bidding.user }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('bidding_show', { 'id': bidding.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('bidding_edit', { 'id': bidding.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('bidding_new') }}">Create a new bidding</a>
+        </li>
+    </ul>
+{% endblock %}

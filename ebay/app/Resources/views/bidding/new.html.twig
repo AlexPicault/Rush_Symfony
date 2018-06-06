@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Bidding creation</h1>
+    {#{<a href="{{ path('bidding_price')}}">Delete</a>}#}
+    Product : {{ product.name }}</br>
+    Start price : {{ product.price }}</br>
+{% if maxBid != 'no' %}
+    Max bid : {{ maxBid }}</br>
+{% endif %}
+
+    Min Raise : +2
+
+    {% if form_errors(form.bid) %}
+    {{ error }}
+    {% endif %}
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="BID" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('bidding_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

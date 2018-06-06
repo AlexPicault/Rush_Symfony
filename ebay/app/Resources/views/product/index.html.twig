@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Products list</h1>
+
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+
+    {{ form_start(formCategory) }}
+    {{ form_widget(formCategory) }}
+    {{ form_end(formCategory) }}
+
+<div class="container">
+    <div class="row">
+        <div class="span5">
+            <table class="table table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Categy</th>
+                <th>Price</th>
+                <th>Immediate_price</th>
+                <th>Saledate</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if products is defined %}
+        {% for product in products %}
+            {% if app.user.username != product.user %}
+                {% if product.sell == false %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.immediateprice }}</td>
+                <td>{% if product.saleDate %}{{ product.saleDate|date('Y-m-d') }}{% endif %}</td>
+                <td><img src="{{asset('uploads/images/products/'~product.getImage)}}" width="100px" height="100px"></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a  class="label label-success" href="{{ path('bidding_new', { 'id': product.id })}}">Bidding</a>
+                        </li>
+                        <li>
+                            <a class="label label-default" href="{{ path('product_show', { 'id': product.id }) }}">show</a>
+                        </li>
+
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        {% endif %}
+        </tbody>
+
+    {% if results is defined %}
+        {% for result in results %}
+            {% if app.user.id != result.user_id %}
+                {% if result.sell == false %}
+                    <tr>
+                    <td>{{ result.name }}</td>
+                    <td>{{ result.comment }}</td>
+                    <td>{{ result.category_id }}</td>
+                    <td>{{ result.price }}</td>
+                    <td>{{ result.immediate_price }}</td>
+                    <td>{% if result.saledate %}{{ result.saledate|date('Y-m-d') }}{% endif %}</td>
+                    <td><img src="{{asset('uploads/images/products/'~result.image)}}" width="100px" height="100px"></td>
+                    <td>
+                    <ul>
+                    <li>
+                        <a  class="label label-success" href="{{ path('bidding_new', { 'id': result.id })}}">Bidding</a>
+                    </li>
+                    <li>
+                        <a class="label label-default" href="{{ path('product_show', { 'id': result.id }) }}">show</a>
+                    </li>
+
+                {% endif %}
+            {% endif %}
+            </table>
+            </div>
+            </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+{% endblock %}
